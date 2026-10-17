@@ -1,88 +1,619 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ritik | Developer</title>
+  <meta name="theme-color" content="#070709">
+  <meta name="description" content="Ritik's developer portfolio — web development, creative coding and projects.">
+  <title>Ritik.dev | Developer Portfolio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
-    * { box-sizing: border-box; }
+    :root {
+      --bg: #070709;
+      --panel: rgba(20, 20, 25, .78);
+      --red: #ff304f;
+      --red-light: #ff6479;
+      --text: #f5f5f7;
+      --muted: #a3a3ad;
+      --border: rgba(255,255,255,.10);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 85px; }
+
     body {
-      margin: 0;
-      background: #080808;
-      color: #fff;
-      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
       line-height: 1.7;
     }
-    header {
-      padding: 22px;
-      color: #ff3030;
-      border-bottom: 1px solid #333;
-      font-weight: bold;
-      letter-spacing: 3px;
+
+    a { color: inherit; text-decoration: none; }
+
+    #particles {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
     }
-    main {
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 45px 45px;
+      mask-image: linear-gradient(to bottom, black, transparent 90%);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 30, 65, .09);
+      filter: blur(100px);
+      z-index: -2;
+      pointer-events: none;
+      animation: aura 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes aura {
+      from { opacity: .45; transform: translate(-60%, 0) scale(.8); }
+      to { opacity: 1; transform: translate(-35%, 50px) scale(1.2); }
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      padding: 17px 7%;
+      background: rgba(7,7,9,.78);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+
+    .logo span, .red { color: var(--red); }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .nav-links a:hover { color: white; }
+
+    .nav-cta {
+      border: 1px solid rgba(255,48,79,.5);
+      padding: 8px 14px;
+      border-radius: 8px;
+      color: #fff !important;
+    }
+
+    .container { width: min(1080px, 88%); margin: auto; }
+
+    .hero {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 95px 0 80px;
+      position: relative;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.035);
+      border-radius: 30px;
+      padding: 8px 14px;
+      font-size: 12px;
+      color: #d7d7dc;
+      margin-bottom: 30px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #50ed9a;
+      border-radius: 50%;
+      box-shadow: 0 0 12px #50ed9a;
+      animation: blink 1.7s infinite;
+    }
+
+    @keyframes blink { 50% { opacity: .3; } }
+
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--red-light);
+      margin-bottom: 17px;
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(48px, 9vw, 94px);
+      line-height: 1.04;
+      letter-spacing: -5px;
       max-width: 850px;
-      margin: auto;
-      padding: 55px 22px;
     }
-    .red { color: #ff3535; }
-    h1 { font-size: clamp(38px, 9vw, 65px); line-height: 1.15; }
-    .card {
-      margin-top: 25px;
-      padding: 22px;
-      background: #141414;
-      border: 1px solid #333;
-      border-radius: 14px;
+
+    .gradient-text {
+      background: linear-gradient(100deg, #ff304f, #ff8b98 55%, #ffffff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
-    .button {
-      display: inline-block;
-      padding: 10px 18px;
-      background: #e92727;
+
+    .hero-desc {
+      max-width: 560px;
+      color: var(--muted);
+      font-size: 16px;
+      margin: 25px 0 32px;
+    }
+
+    .actions { display: flex; flex-wrap: wrap; gap: 13px; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      border-radius: 9px;
+      padding: 13px 19px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: transform .25s, box-shadow .25s, border-color .25s;
+    }
+
+    .btn:hover { transform: translateY(-3px); }
+
+    .btn-primary {
+      background: var(--red);
       color: white;
-      text-decoration: none;
-      border-radius: 7px;
-      margin-top: 10px;
+      box-shadow: 0 0 28px rgba(255,48,79,.2);
     }
-    footer {
+
+    .btn-primary:hover { box-shadow: 0 0 38px rgba(255,48,79,.4); }
+
+    .btn-outline {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.035);
+    }
+
+    .btn-outline:hover { border-color: var(--red); }
+
+    .scroll-hint {
+      margin-top: 55px;
+      color: #777782;
+      font-size: 11px;
+      letter-spacing: 2px;
+    }
+
+    section { padding: 55px 0; }
+
+    .section-label {
+      color: var(--red-light);
+      font-size: 11px;
+      letter-spacing: 3px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(29px, 5vw, 42px);
+      letter-spacing: -1.5px;
+      margin-bottom: 12px;
+    }
+
+    .section-desc { color: var(--muted); font-size: 14px; }
+
+    .panel {
+      position: relative;
+      overflow: hidden;
+      padding: 30px;
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      background: linear-gradient(140deg, rgba(24,24,30,.91), rgba(12,12,15,.88));
+      transition: transform .3s, border-color .3s, box-shadow .3s;
+    }
+
+    .panel:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255,48,79,.48);
+      box-shadow: 0 15px 45px rgba(0,0,0,.25);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.3fr .7fr;
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .about-text { color: #c3c3cc; font-size: 14px; margin-top: 15px; }
+
+    .mini-card {
+      border: 1px solid rgba(255,48,79,.2);
+      background: rgba(255,48,79,.045);
+      border-radius: 12px;
+      padding: 18px;
+      margin-top: 12px;
+    }
+
+    .mini-card strong {
+      display: block;
+      color: var(--red-light);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+    }
+
+    .mini-card span { font-size: 12px; color: var(--muted); }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 11px;
+      margin-top: 25px;
+    }
+
+    .skill {
+      padding: 10px 14px;
+      border-radius: 9px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border);
+      font-size: 12px;
+      transition: .25s;
+    }
+
+    .skill:hover {
+      color: var(--red-light);
+      border-color: var(--red);
+      transform: translateY(-3px);
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .project-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+
+    .project-icon {
+      width: 45px;
+      height: 45px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,48,79,.28);
+      background: rgba(255,48,79,.08);
+      color: var(--red-light);
+      border-radius: 12px;
+      font-size: 20px;
+    }
+
+    .project-number { color: #73737d; font-size: 11px; letter-spacing: 2px; }
+
+    .project h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .project p { color: var(--muted); font-size: 13px; min-height: 48px; }
+
+    .project-link {
+      display: inline-block;
+      color: var(--red-light);
+      font-size: 12px;
+      font-weight: 700;
+      margin-top: 22px;
+    }
+
+    .project-link:hover { color: white; }
+
+    .contact-panel {
       text-align: center;
-      padding: 25px;
-      color: #aaa;
-      border-top: 1px solid #333;
+      padding: 48px 25px;
+      background: radial-gradient(ellipse at top, rgba(255,48,79,.12), transparent 65%), var(--panel);
+    }
+
+    .contact-panel p {
+      color: var(--muted);
+      max-width: 500px;
+      margin: 12px auto 25px;
+      font-size: 14px;
+    }
+
+    footer {
+      margin-top: 65px;
+      padding: 25px 6%;
+      border-top: 1px solid var(--border);
+      color: #85858f;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    footer span { color: var(--red-light); }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    @media (max-width: 650px) {
+      .nav { padding: 14px 5%; }
+      .logo { font-size: 19px; }
+      .nav-links { gap: 13px; font-size: 11px; }
+      .nav-links a:nth-child(2) { display: none; }
+      .nav-cta { padding: 7px 9px; }
+      .container { width: 89%; }
+      .hero { min-height: 75vh; padding: 75px 0 55px; }
+      h1 { letter-spacing: -2.5px; font-size: clamp(43px, 12vw, 65px); }
+      .hero-desc { font-size: 14px; }
+      section { padding: 38px 0; }
+      .about-grid, .projects { grid-template-columns: 1fr; }
+      .panel { padding: 23px; }
+      .project p { min-height: auto; }
+      .scroll-hint { margin-top: 38px; }
     }
   </style>
 </head>
+
 <body>
-  <header>RITIK.DEV</header>
-  <main>
-    <p class="red">CLASS 10 STUDENT • ASPIRING DEVELOPER</p>
-    <h1>Turning Ideas<br><span class="red">Into Reality.</span></h1>
-    <p>Hi, I'm Ritik. I love learning web development
-      and building useful digital projects.</p>
-    <a class="button" href="#projects">Explore My Work ↓</a>
+  <canvas id="particles" aria-hidden="true"></canvas>
 
-    <section class="card">
-      <h2>About Me</h2>
-      <p>I'm a student exploring technology, coding,
-        and creative ways to solve problems.</p>
+  <header class="nav">
+    <a class="logo" href="#home">RITIK<span>.DEV</span></a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a class="nav-cta" href="#contact">Contact ↗</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero" id="home">
+      <div class="status"><span class="status-dot"></span> LEARNING · BUILDING · IMPROVING</div>
+      <p class="eyebrow">Class 10 Student · Aspiring Developer</p>
+      <h1>Building the<br><span class="gradient-text">Digital Future.</span></h1>
+      <p class="hero-desc">
+        Hi, I'm Ritik. I'm learning web development and exploring creative ways
+        to turn ideas into useful digital experiences.
+      </p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#projects">Explore My Work ↘</a>
+        <a class="btn btn-outline" href="https://github.com/Riteekdeveloper" target="_blank" rel="noopener noreferrer">GitHub Profile ↗</a>
+      </div>
+      <div class="scroll-hint">SCROLL TO EXPLORE ↓</div>
     </section>
 
-    <section class="card">
-      <h2>My Skills</h2>
-      <p>HTML · CSS · JavaScript · GitHub</p>
-      <p class="red">Always learning. Always improving.</p>
+    <section id="about" class="reveal">
+      <p class="section-label">01 / About</p>
+      <h2 class="section-title">A little about me<span class="red">.</span></h2>
+      <p class="section-desc">Curiosity today. Better projects tomorrow.</p>
+      <div class="about-grid">
+        <article class="panel">
+          <h3>Learning by building.</h3>
+          <p class="about-text">
+            I'm a student exploring technology, coding, and creative problem-solving.
+            I enjoy learning step by step and improving my projects with every new idea.
+          </p>
+        </article>
+        <div class="panel">
+          <h3>My mindset</h3>
+          <div class="mini-card">
+            <strong>01</strong>
+            <span>Learn something new</span>
+          </div>
+          <div class="mini-card">
+            <strong>02</strong>
+            <span>Build and keep improving</span>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section class="card" id="projects">
-      <h2>My Projects</h2>
-      <h3>StudentHub4U</h3>
-      <p>An educational platform project for students.</p>
-      <h3>MYWEBSITE</h3>
-      <p>An anime discovery website project.</p>
-      <p>More projects coming soon.</p>
-      <a class="button" href="https://github.com/">Visit GitHub</a>
+    <section id="skills" class="reveal">
+      <p class="section-label">02 / Toolkit</p>
+      <h2 class="section-title">Technologies I'm learning<span class="red">.</span></h2>
+      <p class="section-desc">My current learning toolkit.</p>
+      <div class="skills">
+        <span class="skill">HTML5</span>
+        <span class="skill">CSS3</span>
+        <span class="skill">JavaScript</span>
+        <span class="skill">Git</span>
+        <span class="skill">GitHub</span>
+        <span class="skill">Responsive Design</span>
+      </div>
+    </section>
+
+    <section id="projects" class="reveal">
+      <p class="section-label">03 / Selected work</p>
+      <h2 class="section-title">Projects in progress<span class="red">.</span></h2>
+      <p class="section-desc">A collection of ideas I'm working on.</p>
+
+      <div class="projects">
+        <article class="panel project">
+          <div class="project-top">
+            <div class="project-icon">⌘</div>
+            <span class="project-number">PROJECT 01</span>
+          </div>
+          <h3>StudentHub4U</h3>
+          <p>An educational platform concept for students, focused on study resources and learning tools.</p>
+          <a class="project-link" href="https://github.com/Riteekdeveloper" target="_blank" rel="noopener noreferrer">View GitHub ↗</a>
+        </article>
+
+        <article class="panel project">
+          <div class="project-top">
+            <div class="project-icon">◈</div>
+            <span class="project-number">PROJECT 02</span>
+          </div>
+          <h3>MYWEBSITE</h3>
+          <p>An anime discovery website concept with a focus on a modern, responsive interface.</p>
+          <a class="project-link" href="https://github.com/Riteekdeveloper" target="_blank" rel="noopener noreferrer">View GitHub ↗</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="reveal">
+      <div class="panel contact-panel">
+        <p class="section-label">04 / Get in touch</p>
+        <h2 class="section-title">Let's connect<span class="red">.</span></h2>
+        <p>Want to explore my work or follow my learning journey? Visit my GitHub profile.</p>
+        <a class="btn btn-primary" href="https://github.com/Riteekdeveloper" target="_blank" rel="noopener noreferrer">Connect on GitHub ↗</a>
+      </div>
     </section>
   </main>
-  <footer>Designed & Built by Ritik © 2026</footer>
+
+  <footer>
+    Designed & built by <span>Ritik</span> · © <span id="year"></span>
+  </footer>
+
+  <script>
+    // Animated particles — lightweight and responsive
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+    let width = 0, height = 0;
+    let frame = 0;
+
+    function setupCanvas() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = width + "px";
+      canvas.style.height = height + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const count = Math.min(55, Math.floor(width / 7));
+      particles = Array.from({ length: count }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: Math.random() * 1.5 + .4,
+        vx: (Math.random() - .5) * .28,
+        vy: (Math.random() - .5) * .28
+      }));
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, width, height);
+
+      particles.forEach((p, i) => {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > width) p.vx *= -1;
+        if (p.y < 0 || p.y > height) p.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255, 65, 90, .75)";
+        ctx.fill();
+
+        for (let j = i + 1; j < particles.length; j++) {
+          const q = particles[j];
+          const dx = p.x - q.x;
+          const dy = p.y - q.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 95) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(q.x, q.y);
+            ctx.strokeStyle = `rgba(255, 48, 79, ${.12 * (1 - distance / 95)})`;
+            ctx.lineWidth = .6;
+            ctx.stroke();
+          }
+        }
+      });
+
+      frame = requestAnimationFrame(drawParticles);
+    }
+
+    setupCanvas();
+    drawParticles();
+
+    window.addEventListener("resize", setupCanvas);
+
+    // Reveal sections while scrolling
+    const revealItems = document.querySelectorAll(".reveal");
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: .12 });
+
+      revealItems.forEach(item => observer.observe(item));
+    } else {
+      revealItems.forEach(item => item.classList.add("visible"));
+    }
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
